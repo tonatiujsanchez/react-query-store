@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { productActions } from '../services';
+import { productActions } from '../services'
 
 interface UseProductsParams {
     filterKey?: string
