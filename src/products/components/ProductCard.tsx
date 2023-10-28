@@ -5,13 +5,17 @@ import { Card, Image } from '@nextui-org/react'
 import { Product } from '../interfaces'
 
 interface Props {
-  product         : Product
-  fullDescription?: boolean
+  product           : Product
+  fullDescription?  : boolean
+  prefectchProduct? : (params:{ idProduct:string })=>void
 }
 
-export const ProductCard:FC<Props> = ({ product, fullDescription }) => {
+export const ProductCard:FC<Props> = ({ product, fullDescription, prefectchProduct }) => {
   return (
-    <Link to={`/product/${ product.id }`}>
+    <Link 
+      to={`/product/${ product.id }`}
+      onMouseEnter={()=> prefectchProduct && prefectchProduct({ idProduct: product.id.toString() })}
+    >
       <Card
         className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white">
         <div className="w-full md:w-1/3 bg-white grid place-items-center">
