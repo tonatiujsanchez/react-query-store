@@ -16,8 +16,7 @@ interface FormInputs {
 export const NewProduct = () => {
 
     const { productMutation } = useProductMutation()
-
-
+    
     const { control, handleSubmit, watch } = useForm<FormInputs>({
         defaultValues: {
             title: 'Google Pixel 8 Pro',
@@ -29,8 +28,6 @@ export const NewProduct = () => {
     })
 
     const newImage = watch('image')
-
-
 
     const onProductSubmit: SubmitHandler<FormInputs> = (data) => {
         productMutation.mutate(data)
