@@ -1,6 +1,9 @@
 import { Button, Image, Input, Textarea } from '@nextui-org/react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import { useProductMutation } from '../hooks'
+
 import { Category } from '../interfaces'
+
 
 interface FormInputs {
     title      : string
@@ -11,6 +14,8 @@ interface FormInputs {
 }
 
 export const NewProduct = () => {
+
+    const { productMutation } = useProductMutation()
 
 
     const { control, handleSubmit, watch } = useForm<FormInputs>({
@@ -28,7 +33,7 @@ export const NewProduct = () => {
 
 
     const onProductSubmit: SubmitHandler<FormInputs> = (data) => {
-        console.log(data)
+        productMutation.mutate(data)
     }
 
     return (
@@ -92,7 +97,14 @@ export const NewProduct = () => {
 
 
                         <br />
-                        <Button type="submit" className="mt-2" color="primary">Crear</Button>
+                        <Button 
+                            type="submit" 
+                            className="mt-2" 
+                            color="primary"
+                            isDisabled={ productMutation.isPending }
+                        >
+                            { productMutation.isPending ? 'Creando...' : 'Crear producto' }
+                        </Button>
                     </div>
 
                     <div className="bg-white rounded-2xl p-10 flex items-center" style={{
